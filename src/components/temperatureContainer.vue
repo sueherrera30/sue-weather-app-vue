@@ -1,5 +1,10 @@
 <template>
   <div class="mainContainer">
+    <img
+      class="weather-icon"
+      alt="weather icon"
+      :src="getWeatherMain.temp === 0 ? '' :'http://openweathermap.org/img/wn/'+getWeatherMain.icon+'d@2x.png'"
+    >
     <span class="number">{{getWeatherMain.temp}}</span>
     <span class="tempSymbol">°</span>
   </div>
@@ -10,14 +15,41 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'TemperatureContainer',
-    computed : {
+  computed : {
     ...mapGetters(["getWeatherMain"])
   },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="less">
+.weather {
+  &-icon {
+    position: absolute;
+    top: -35px;
+    left: -35px;
+    width: 110px;
+    height: 110px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    filter: drop-shadow(1px 1px 0 fade(black, 3))
+      drop-shadow(-5px -5px 0 fade(black, 8));
+    &[src=""] {
+      display:none;
+    }
+  }
+}
+@media (max-height: 767px) {
+  .weather-main {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    .weather-temp {
+      width: 125px;
+      height: 125px;
+      margin: 30px 0;
+    }
+  }
+}
 .mainContainer {
   position: relative;
   width: 150px;

@@ -4,9 +4,12 @@
       class="weather-animate"
       :class="[
       {'weather-rain': getWeatherMain.info == 'Rain'},
-      {'weather-snow': getWeatherMain.info == 'Snow'},
+      {'weather-snow': getWeatherMain.info == 'Snow' || getWeatherMain.temp < 5},
       {'weather-clear': getWeatherMain.info == 'Clear' || getWeatherMain.info == 'Mist'},
-      {'weather-clouds': getWeatherMain.info == 'Clouds' || getWeatherMain.info == 'Haze'}]"
+      {'weather-clouds': getWeatherMain.info == 'Clouds' || getWeatherMain.info == 'Haze'},
+      {'weather-fog': getWeatherMain.info == 'Fog'}
+      ]"
+      
     ></div>
   </div>
 </template>
@@ -151,6 +154,37 @@ export default {
   }
   100% {
     background-position: 400px 1100px, 400px 400px, 600px 600px;
+  }
+}
+// Foggy weather
+&.weather-fog {
+  background-image: url("../assets/images/fog-background-1.jpeg");
+  &::after,
+  &::before {
+    content: "";
+    background-image: url("../assets/images/fog-1.png");
+    height: 810px;
+    position: absolute;
+    width: 100%;
+    background-repeat: repeat-x;
+  }
+  &::after {
+    top: -50px;
+    animation: animateCloud calc(var(--cloudAnimateTime) /15)linear infinite
+      alternate-reverse;
+  }
+  &::before {
+    top: 300px;
+    animation: animateCloud calc(var(--cloudAnimateTime) / 15) linear infinite
+      alternate;
+  }
+}
+@keyframes animateCloud {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 100% 0;
   }
 }
 </style>

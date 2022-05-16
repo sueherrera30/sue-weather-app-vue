@@ -12,8 +12,8 @@ export default new Vuex.Store({
     search: "",
     isError: false,
     weatherData: {
-      temp: 34,
-      feelsLike: 34,
+      temp: 20,
+      feelsLike: 0,
       description: '',
       info: 'Clouds',
       icon: '',
@@ -43,6 +43,9 @@ export default new Vuex.Store({
     getWeatherCountry(state) {
       return state.weatherData.country;
     },
+    getError(state) {
+      return state.isError; 
+    },
   },
   mutations: {
     ["SET_WEATHER_DATA"](state, data) {
@@ -53,15 +56,21 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    reduceTempvalue(value) {
+      return value
+    },
     async fetchWeatherData({ commit, state }, search) {
       try {
         commit("SET_SEARCH", search);
         const response = await axios.get(
           `${state.apiBase}weather?q=${search}&units=metric&APPID=${state.apiKey}`
         );
+        const tempSplitted = String(response.data.main.temp).split('.')
+        const temp = tempSplitted[1] >= 50 ? Math.ceil(response.data.main.temp) : Math.floor(response.data.main.temp)
+
         const newWeatherData = {
           name: response.data.name,
-          temp: response.data.main.temp,
+          temp,
           tempMin: response.data.main.temp_min,
           tempMax: response.data.main.temp_max,
           feelsLike: response.data.main.feels_like,
@@ -75,10 +84,10 @@ export default new Vuex.Store({
         };
         commit("SET_WEATHER_DATA", newWeatherData);
         commit("SET_ERROR", false);
-        console.log('data from state', state.weatherData);
         console.log('data from request', newWeatherData);
+        this.state.isError = false;
       } catch (error) {
-        console.log(error);
+        this.state.isError = true;
         commit("SET_WEATHER_DATA", {});
       }
     },

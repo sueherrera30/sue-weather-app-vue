@@ -1,6 +1,6 @@
 <template>
-  <div class="SearchBar">
-    <input type="search" placeholder="Busca una ciudad" class="searchBar" @change="getData" v-model="citySearched" />
+  <div class="SearchBar-container">
+    <input class="searchBar" type="search" placeholder="Busca una ciudad" @change="getData" v-model="citySearched" />
   </div>
 </template>
 
@@ -22,14 +22,22 @@ export default {
     getData() {
       this.fetchWeatherData(this.citySearched)
     },
+  },
+  mounted() {
+    setTimeout(() => {
+      this.citySearched = this.getWeatherMain.name;
+    }, 1000)
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.searchBar {
+.SearchBar-container{
   width: 100%;
+  text-align: center;
+}
+.searchBar {
   height: 50px;
   border: 2px solid rgba(0,0,0,.1);
   border-radius: 100px;
@@ -40,6 +48,7 @@ export default {
   padding-right: 25px;
   transition: all .4s;
   font-family: 'Quicksand', sans-serif;
+  width: 100%;
 }
 .searchBar:focus {
     width: 100%;

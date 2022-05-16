@@ -1,9 +1,15 @@
 <template>
   <div class="mainContainer">
     <transition name="fade" mode="out-in" appear>
-      <Card title="Oye, me llevo chanclas o paraguas?">
-        <SearchBar />
-        <TemperatureContainer />
+      <Card title="hey!, should I wear flip flops or scarf?">
+        <div v-if="getError">
+          <NoFoundCity />
+          <SearchBar />
+        </div>
+        <div v-else>
+          <SearchBar />
+          <TemperatureContainer />
+        </div>
       </Card>
     </transition>
     <WeatherAnimate />
@@ -13,7 +19,9 @@
 <script>
 import Card from './components/Card.vue';
 import SearchBar from './components/SearchBar.vue';
+import { mapGetters } from 'vuex';
 import TemperatureContainer from './components/temperatureContainer.vue';
+import NoFoundCity from "./components/NoFound.vue"
 import WeatherAnimate from "@/components/WeatherAnimate";
 
 export default {
@@ -22,7 +30,14 @@ export default {
     Card,
     SearchBar,
     TemperatureContainer,
+    NoFoundCity,
     WeatherAnimate,
+  }, 
+  computed: {
+    ...mapGetters(['getError']),
+  },
+  updated() {
+    console.log('error de app', this.getError);
   }
 }
 </script>
