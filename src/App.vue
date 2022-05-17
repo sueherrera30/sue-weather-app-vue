@@ -117,6 +117,13 @@ body {
 @media (max-width: 480px) {
   .card {
     padding: 30px;
+    max-width: 90%;
+
+  }
+}
+@media (max-width: 375px) {
+  .card {
+    font-size: 12px;
   }
 }
 </style>
