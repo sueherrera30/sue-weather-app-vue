@@ -2,22 +2,15 @@
   <div class="card">
     <p class="title">{{ title }}</p>
     <slot />
-    <hr/>
-    <InformationWeather />
   </div>
 </template>
-
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import InformationWeather from '../components/InformationWeather.vue';
 
 export default {
   name: 'Card',
   props: {
     title: String
-  },
-  components: {
-    InformationWeather,
   },
   computed: {
     ...mapGetters(['getWeatherMain']),
@@ -27,12 +20,11 @@ export default {
 
   },
   created() {
-    this.$store.dispatch('fetchWeatherData', "Mexico")
+    this.$store.dispatch('fetchWeatherData', "Mexico city")
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 .card {
   width: var(--cardWidth);

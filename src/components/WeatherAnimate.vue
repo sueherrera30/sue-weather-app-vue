@@ -7,19 +7,29 @@
       {'weather-snow': getWeatherMain.info == 'Snow' || getWeatherMain.temp < 5},
       {'weather-clear': getWeatherMain.info == 'Clear' || getWeatherMain.info == 'Mist'},
       {'weather-clouds': getWeatherMain.info == 'Clouds' || getWeatherMain.info == 'Haze'},
-      {'weather-fog': getWeatherMain.info == 'Fog'}
+      {'weather-fog': getWeatherMain.info == 'Fog'},
+      {randomType: getWeatherMain.info == undefined }
       ]"
-      
     ></div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+
+const weatherTypes = ['weather-rain','weather-snow', 'weather-clear', 'weather-clouds', 'weather-fog'];
+
 export default {
+  name: 'WeatherAnimate',
+  data: function() {
+    return {
+      randomType: weatherTypes[Math.floor(Math.random() * weatherTypes.length)],
+      };
+  },
   computed: {
-    ...mapGetters(["getWeatherMain"])
-  }
+    ...mapGetters(["getWeatherMain"]),
+    
+  },
 };
 </script>
 
@@ -48,7 +58,7 @@ export default {
       -45deg,
       var(--grayColor),
       var(--darkColor)
-    );
+    )
   }
 }
 // clear weather

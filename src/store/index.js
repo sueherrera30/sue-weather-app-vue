@@ -8,7 +8,6 @@ export default new Vuex.Store({
   state: {
     apiBase: "https://api.openweathermap.org/data/2.5/",
     apiKey: "137c47222e68ff1b9668ee2fb5a4cbac",
-    defaultSearch: "istanbul",
     search: "",
     isError: false,
     weatherData: {

@@ -1,15 +1,19 @@
 <template>
   <div class="mainContainer">
-    <transition name="fade" mode="out-in" appear>
+    <transition name="fade" mode="out-in" appear v-if="getError">
       <Card title="hey!, should I wear flip flops or scarf?">
         <div v-if="getError">
           <NoFoundCity />
           <SearchBar />
         </div>
-        <div v-else>
-          <SearchBar />
-          <TemperatureContainer />
-        </div>
+      </Card>
+    </transition>
+    <transition name="fade" mode="out-in" appear v-else>
+      <Card title="hey!, should I wear flip flops or scarf?">
+        <SearchBar />
+        <TemperatureContainer />
+        <hr/>
+        <InformationWeather />
       </Card>
     </transition>
     <WeatherAnimate />
@@ -22,7 +26,8 @@ import SearchBar from './components/SearchBar.vue';
 import { mapGetters } from 'vuex';
 import TemperatureContainer from './components/temperatureContainer.vue';
 import NoFoundCity from "./components/NoFound.vue"
-import WeatherAnimate from "@/components/WeatherAnimate";
+import WeatherAnimate from "@/components/WeatherAnimate.vue";
+import InformationWeather from "./components/InformationWeather.vue"
 
 export default {
   name: 'App',
@@ -31,6 +36,7 @@ export default {
     SearchBar,
     TemperatureContainer,
     NoFoundCity,
+    InformationWeather,
     WeatherAnimate,
   }, 
   computed: {

@@ -1,6 +1,6 @@
 <template>
   <div class="SearchBar-container">
-    <input class="searchBar" type="search" placeholder="Busca una ciudad" @change="getData" v-model="citySearched" />
+    <input class="searchBar" type="search" placeholder="Search a city!" @change="getData" v-model="citySearched" />
   </div>
 </template>
 
@@ -31,7 +31,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .SearchBar-container{
   width: 100%;

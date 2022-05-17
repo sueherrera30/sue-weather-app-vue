@@ -1,7 +1,7 @@
 <template>
   <div class="NoFoundCity">
     <h2>Sorry, this city was NOT found</h2>
-    <p>Try to search in english, please.</p>
+    <p>tip, Try to search in english.</p>
     <p>:(</p>
   </div>
 </template>
